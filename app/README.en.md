@@ -158,6 +158,38 @@ That way, if `shouldShow` becomes `true` later, it can be shown again.
 
 ---
 
+## Visual UI Demonstration & Expected Behavior (MVVM + Clean Architecture)
+
+In addition to unit tests, this project includes a graphical user interface built using **MVVM** and **Clean Architecture** in [`NoticeScreen.kt`](file:///Users/giovani/AndroidStudioProjects/Code_Challenge_Insulet/app/src/main/java/com/insulet/code_challenge/NoticeScreen.kt) and [`NoticeViewModel.kt`](file:///Users/giovani/AndroidStudioProjects/Code_Challenge_Insulet/app/src/main/java/com/insulet/code_challenge/NoticeViewModel.kt) wired to `MainActivity`.
+
+When `NoticeCoordinator` is correctly implemented, the UI visually reflects each case and rule of the challenge:
+
+### 1. Status Chips Dashboard
+Displays real-time indicators for the coordinator and persistence state:
+- **Visible**: `YES` / `NO` (indicates whether the notice is currently active on screen).
+- **Attached**: `YES` / `NO` (simulates whether the screen/host is attached or destroyed).
+- **Pending**: `YES` / `NO` (`notice_pending` stored in `InMemoryDialogStore`).
+- **Dismissed**: `YES` / `NO` (`notice_dismissed` stored in `InMemoryDialogStore`).
+
+### 2. Interactive Controls & Use Cases
+- **Show Notice (`shouldShow = true`)**:
+  - If the host is attached and no blocking flows are active, the **Visible** indicator changes to `YES`, `PENDING_ID` is saved, and the floating **AlertDialog** (`⚠️ Aviso Importante Insulet`) appears instantly.
+- **Dismiss Condition (`shouldShow = false`)**:
+  - Hides the notice, clears `PENDING_ID` and `DISMISSED_ID`, allowing future events to trigger the notice again.
+- **Blocking Flow (`blockingFlowActive = true`)**:
+  - Ignores the show event and does not modify the store or UI.
+- **Detach / Attach Host**:
+  - Tapping **Detach Host** sets `Attached: NO`. If an event arrives while detached, the UI is untouched (preventing crashes). Tapping **Attach Host** back restores any pending notice automatically.
+- **Confirm / Cancel**:
+  - Closes the dialog, clears `PENDING_ID`, saves `DISMISSED_ID`, and respects the **500 ms debounce window** (ignoring rapid double-taps).
+- **Simulate App Restart**:
+  - Simulates process death by instantiating a new `NoticeCoordinator` attached to the exact same `InMemoryDialogStore`. If already dismissed, the notice does **not** reappear; if pending, it restores upon attachment.
+
+### 3. Audit Trail & Logs
+- A real-time log box displays every call, action, and state transition processed by the ViewModel and `NoticeCoordinator`, allowing you to inspect the full workflow visually.
+
+---
+
 ## How to run the tests
 
 From this folder (do not use the Android app Gradle):

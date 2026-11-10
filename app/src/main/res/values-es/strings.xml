@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Code_Challenge</string>
+    <string name="dialog_title">⚠️ Aviso Importante</string>
+    <string name="dialog_message">Se requiere su atención: Active las notificaciones y configure los flujos del sistema para continuar.</string>
+    <string name="dialog_confirm">Confirmar</string>
+    <string name="dialog_cancel">Cancelar</string>
+</resources>

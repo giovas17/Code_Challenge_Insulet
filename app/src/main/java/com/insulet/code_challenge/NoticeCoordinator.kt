@@ -12,30 +12,30 @@ class NoticeCoordinator(
     }
 
     fun onEvent(event: NoticeEvent?) {
-        TODO("Implementar")
+        // Implement code here
     }
 
     fun onHostAttached() {
-        TODO("Implementar")
+        // Implement code here
     }
 
     fun onHostDetached() {
-        TODO("Implementar")
+        // Implement code here
     }
 
     fun onUserConfirmed() {
-        TODO("Implementar")
+        // Implement code here
     }
 
     fun onUserCancelled() {
-        TODO("Implementar")
+        // Implement code here
     }
 
     fun onAppRestarted() {
-        TODO("Implementar")
+        // Implement code here
     }
 
     fun isNoticeVisible(): Boolean {
-        TODO("Implementar")
+        return false
     }
 }
